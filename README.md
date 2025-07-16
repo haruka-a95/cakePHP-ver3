@@ -24,13 +24,8 @@ docker-compose up -d --build
 docker exec -it cakephp-web bash
 
 ```
-### 4. ディレクトリのパーミッション設定
-```bash
-chown -R www-data:www-data logs tmp
-chmod -R 775 logs tmp
-```
 
-### 5. 依存ライブラリのインストール
+### 4. 依存ライブラリのインストール
 
 ```bash
 composer install
@@ -38,6 +33,12 @@ composer install
 インストール中にメッセージが表示された場合、内容を確認のうえ、問題なければ「Y」で進んでください。
 例：Set Folder Permissions ? (Default to Y) [Y,n]? Y
 
+
+### 5. ディレクトリのパーミッション設定
+```bash
+chown -R www-data:www-data logs tmp
+chmod -R 775 logs tmp
+```
 ## 使い方
 Webアクセス: http://localhost:81
 
