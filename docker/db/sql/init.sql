@@ -1,0 +1,1 @@
+CREATE DATABASE `php_db`;
