@@ -39,8 +39,18 @@ composer install
 chown -R www-data:www-data logs tmp
 chmod -R 775 logs tmp
 ```
+
+### 6. マイグレーションの実行
+```bash
+bin/cake migrations migrate
+```
+
+### 7. サンプルデータ投入
+```bin
+bin/cake migrations seed
+```
+
 ## 使い方
 Webアクセス: http://localhost:81
 
 phpMyAdmin: http://localhost:8081
-
