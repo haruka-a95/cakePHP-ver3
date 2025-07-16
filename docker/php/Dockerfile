@@ -1,4 +1,4 @@
-FROM php:8.1.8-apache
+FROM php:7.4-apache
 # composer php.iniをコピー
 COPY ./php.ini /usr/local/etc/php/
 # composer インストール (マルチステージビルド)
@@ -11,5 +11,10 @@ RUN apt-get update && apt-get install -y \
     unzip \
     vim \
     zip \
+    libicu-dev \
+    # intl用ライブラリ追加
+    && docker-php-ext-configure intl \
+    # pdo_mysql と intl をインストール
+    && docker-php-ext-install pdo_mysql intl \
     && docker-php-ext-install pdo_mysql \
     && a2enmod rewrite

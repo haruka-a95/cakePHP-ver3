@@ -1,1 +1,1 @@
-CREATE DATABASE `php_db`;
+CREATE DATABASE `cakephp_db`;
