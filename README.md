@@ -35,6 +35,6 @@ Webアクセス: http://localhost:81
 phpMyAdmin: http://localhost:8081
 
 ## 注意
-CakePHP 3系はPHP8未対応のため、DockerfileでPHP7.4を指定しています。
+CakePHP 3系はPHP8未対応ですが、実際のプロジェクトにあわせてDockerfileでPHP 8.2.26を指定しています。
 
 ext-intl など必要な拡張機能はDockerfile内でインストール済みです。
