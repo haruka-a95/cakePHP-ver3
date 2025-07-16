@@ -1,6 +1,9 @@
 # CakePHP 3.x Docker環境セットアップ
 
 Dockerを使ってCakePHP 3系の開発環境を構築します。
+- PHPバージョン　8.2.26
+- CakePHP バージョン　
+
 
 ## セットアップ手順
 
@@ -21,7 +24,13 @@ docker-compose up -d --build
 docker exec -it cakephp-web bash
 
 ```
-### 4. 依存ライブラリのインストール
+### 4. ディレクトリのパーミッション設定
+```bash
+chown -R www-data:www-data logs tmp
+chmod -R 775 logs tmp
+```
+
+### 5. 依存ライブラリのインストール
 
 ```bash
 composer install
