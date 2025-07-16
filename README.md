@@ -1,8 +1,8 @@
 # CakePHP 3.x Docker環境セットアップ
 
 Dockerを使ってCakePHP 3系の開発環境を構築します。
-- PHPバージョン　7.4
-- CakePHP バージョン　3.6.12
+- PHPバージョン　7.3.33
+- CakePHP バージョン　3.6.14
 
 
 ## セットアップ手順
@@ -44,8 +44,3 @@ Webアクセス: http://localhost:81
 
 phpMyAdmin: http://localhost:8081
 
-## 注意
-CakePHP 3系はPHP8未対応のため、php:7.4-apache　に設定しています。
-実際のプロジェクトでは、PHP 8.2.26が使用されているようです。
-
-ext-intl など必要な拡張機能はDockerfile内でインストール済みです。
