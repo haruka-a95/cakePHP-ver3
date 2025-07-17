@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <style>
         body {
-            font-family: 'ipaexg';
+            font-family: 'IPAexGothic';
         }
         h1 { text-align: center; }
         p { font-size: 14px; }
