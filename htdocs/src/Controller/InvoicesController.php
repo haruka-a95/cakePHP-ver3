@@ -104,4 +104,35 @@ class InvoicesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function print($id)
+    {
+        $invoice = $this->Invoices->get($id);
+
+         // DOMPDF を読み込む（配置した場所に応じてパスを調整）
+        require_once(ROOT . DS . 'vendor' . DS . 'dompdf' . DS . 'autoload.inc.php');
+
+        /// 自動のレイアウトを無効にする
+        $this->viewBuilder()->layout(false);
+
+        // テンプレート指定
+        $this->viewBuilder()->template('pdf');
+
+        // ビューに変数を渡す
+        $this->set(compact('invoice'));
+
+        $html = $this->render()->getBody();
+
+        // DOMPDF インスタンス作成
+        $dompdf = new \Dompdf\Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');//サイズ
+        $dompdf->render();
+
+        // PDF レスポンスを返す
+        return $this->response
+            ->withType('application/pdf')
+            ->withStringBody($dompdf->output())
+            ->withDownload("invoice_{$id}.pdf");//ファイル名
+    }
 }

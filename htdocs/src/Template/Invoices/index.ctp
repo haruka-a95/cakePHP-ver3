@@ -35,6 +35,7 @@
                     <?= $this->Html->link(__('詳細'), ['action' => 'view', $invoice->id]) ?>
                     <?= $this->Html->link(__('編集'), ['action' => 'edit', $invoice->id]) ?>
                     <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $invoice->id], ['confirm' => __('Are you sure you want to delete # {0}?', $invoice->id)]) ?>
+                    <?= $this->Html->link('PDF出力', ['action' => 'print', $invoice->id], ['target' => '_blank']) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
