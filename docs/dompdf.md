@@ -1,32 +1,38 @@
 # DOMPDF 利用手順（zipをDLして利用）
 
-このブランチでは、すでにインストール済、フォント指定まで実施済です。
+Composer を使用せずに DOMPDF を zip ファイルから手動導入し、日本語対応フォント（IPAexGothic）を埋め込んで使用する方法を説明します。
+※このプロジェクトでは Docker コンテナ内で PHP 実行を行います。
 
-## 1. インストール
-以下のサイトから最新のzipファイルをインストール。
-今回は「dompdf-3.1.0.zip」を使用。
-https://github.com/dompdf/dompdf/releases
+## 1. DOMPDFのインストール
+以下の GitHub リリースページから DOMPDF をダウンロードします。
+
+- https://github.com/dompdf/dompdf/releases
+- 今回使用するファイル：`dompdf-3.1.0.zip`
+
+1. ZIPをダウンロードして解凍
+2. 解凍したフォルダの中身を `htdocs/vendor/dompdf/` にコピー（もしくは配置）
 
 
-## 2. フォントの登録（load_font.php使用）
+## 2. 日本語フォントの登録（`load_font.php`使用）
 
-1. 「load_font.php」を以下からダウンロード
-https://github.com/dompdf/utils/blob/master/load_font.php
+1. `load_font.php` のダウンロード
+以下から `load_font.php` をダウンロードします。
+- https://github.com/dompdf/utils/blob/master/load_font.php
 
 ダウンロードしたファイルを以下ディレクトリに配置。
 ```bash
-htdocs/vendor/dompdf
+htdocs/vendor/dompdf/load_font.php
 ```
 
-2. 使用したいフォントをダウンロード
+2. フォントの準備
 今回はIPAフォントを以下からダウンロード。
 IPAexゴシック(Ver.004.01)
-https://moji.or.jp/ipafont/ipaex00401/
+- https://moji.or.jp/ipafont/ipaex00401/
 
 
-ダウンロードしたzipファイルを展開し、.ttfファイルをload_font.phpと同じ以下ディレクトリに配置。
+ZIPファイルを展開し、`ipaexg.ttf`ファイルを`load_font.php`と同じディレクトリに配置。
 ```bash
-htdocs/vendor/dompdf
+htdocs/vendor/dompdf/ipaexg.ttf
 ```
 
 3. フォントを読み込むため、Webコンテナ内にて「load_font.php」を格納したディレクトリに移動し、以下コマンドを実行。
@@ -36,18 +42,33 @@ docker exec -it cakephp-web bash
 cd vendor/dompdf
 php load_font.php IPAexGothic ipaexg.ttf
 ```
-「IPAexGothic」はフォント指定する際の名前になる
+`IPAexGothic` は CSSやPHPでフォントを指定する際のフォント名として使用されます。
 
 ## 3.使用例（CakePHP コントローラー内）
-実際の使用例はInvoiceコントローラー内のprintメソッド参照
+基本的な使い方は以下の通りです。
+実際の使用例は`src/Controller/InvoiceController.php`の`print`メソッド参照。
+
 ```bash
 use Dompdf\Dompdf;
+use Dompdf\Options;
 
-$dompdf = new Dompdf();
-$dompdf->loadHtml('<h1>Hello PDF</h1>');
+$options = new Options();
+$options->set('isRemoteEnabled', true); // 外部フォント読み込みを有効にする
+
+$dompdf = new Dompdf($options);
+
+// HTMLをロード（日本語を含む場合はUTF-8）
+$html = '<html><meta charset="UTF-8"><style>body{font-family: IPAexGothic;}</style><body>Hellow World!</body></html>';
+$dompdf->loadHtml($html);
+
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 
-// PDF をブラウザで表示
+// ブラウザにPDF表示（ダウンロードさせない場合）
 $dompdf->stream("document.pdf", ["Attachment" => false]);
+
 ```
+
+### 注意点
+- 日本語の文字化け、フォントが反映されない
+→`load_font.php` で正しく登録されていない可能性あり
