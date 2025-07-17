@@ -36,8 +36,8 @@ composer install
 
 ### 5. ディレクトリのパーミッション設定
 ```bash
-chown -R www-data:www-data logs tmp
-chmod -R 775 logs tmp
+chown -R www-data:www-data /var/www/html/logs /var/www/html/tmp
+chmod -R 775 /var/www/html/logs /var/www/html/tmp
 ```
 ### 6. 環境設定ファイルの準備
 `.gitignore` により Git 管理対象外となっている`app_local.php`を設定。
