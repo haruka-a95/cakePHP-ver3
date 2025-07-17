@@ -39,13 +39,19 @@ composer install
 chown -R www-data:www-data logs tmp
 chmod -R 775 logs tmp
 ```
+### 6. 環境設定ファイルの準備
+`.gitignore` により Git 管理対象外となっている`app_local.php`を設定。
+ひな形ファイルからコピー。
+```bash
+cp config/app_local.example.php config/app_local.php
+```
 
-### 6. マイグレーションの実行
+### 7. マイグレーションの実行
 ```bash
 bin/cake migrations migrate
 ```
 
-### 7. サンプルデータ投入
+### 8. サンプルデータ投入
 ```bin
 bin/cake migrations seed
 ```
