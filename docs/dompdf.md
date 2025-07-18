@@ -1,9 +1,29 @@
-# DOMPDF 利用手順（zipをDLして利用）
+# DOMPDF 利用手順
 
-Composer を使用せずに DOMPDF を zip ファイルから手動導入し、日本語対応フォント（IPAexGothic）を埋め込んで使用する方法を説明します。
-※このプロジェクトでは Docker コンテナ内で PHP 実行を行います。
+## composerを利用する場合
 
-## 1. DOMPDFのインストール
+### 1. DOMPDFのインストール
+
+このブランチではすでに `composer.json` に `dompdf/dompdf` が含まれているため、  
+**ブランチを```feat/pdf```に切り替えた後に以下を実行するだけで DOMPDF が利用可能になります：**
+```bash
+composer install
+```
+
+- main ブランチを使用する場合
+```composer.json```に ```dompdf/dompdf``` の記述がない場合は、
+webコンテナ内で以下のコマンドを実行し、DOMPDF を追加インストールしてください。
+
+```bash
+composer require dompdf/dompdf
+```
+この操作により composer.json と composer.lock が更新され、
+vendor/ 以下に dompdf がインストールされます。
+
+日本語フォントの登録に進んでください。
+
+## ZIPを使用する場合
+### 1. DOMPDFのインストール
 以下の GitHub リリースページから DOMPDF をダウンロードします。
 
 - https://github.com/dompdf/dompdf/releases
@@ -13,7 +33,7 @@ Composer を使用せずに DOMPDF を zip ファイルから手動導入し、�
 2. 解凍したフォルダの中身を `htdocs/vendor/dompdf/` にコピー（もしくは配置）
 
 
-## 2. 日本語フォントの登録（`load_font.php`使用）
+### 2. 日本語フォントの登録（`load_font.php`使用）
 
 1. `load_font.php` のダウンロード
 以下から `load_font.php` をダウンロードします。
@@ -35,16 +55,15 @@ ZIPファイルを展開し、`ipaexg.ttf`ファイルを`load_font.php`と同�
 htdocs/vendor/dompdf/ipaexg.ttf
 ```
 
-3. フォントを読み込むため、Webコンテナ内にて「load_font.php」を格納したディレクトリに移動し、以下コマンドを実行。
+3. フォントを読み込むため、Webコンテナ内にて、以下コマンドを実行。
 
 ```bash
 docker exec -it cakephp-web bash
-cd vendor/dompdf
-php load_font.php IPAexGothic ipaexg.ttf
+php vendor/dompdf/load_font.php IPAexGothic vendor/dompdf/ipaexg.ttf
 ```
 `IPAexGothic` は CSSやPHPでフォントを指定する際のフォント名として使用されます。
 
-## 3.使用例（CakePHP コントローラー内）
+### 3.使用例（CakePHP コントローラー内）
 基本的な使い方は以下の通りです。
 実際の使用例は`src/Controller/InvoiceController.php`の`print`メソッド参照。
 
@@ -69,6 +88,6 @@ $dompdf->stream("document.pdf", ["Attachment" => false]);
 
 ```
 
-### 注意点
+## 注意点
 - 日本語の文字化け、フォントが反映されない
 →`load_font.php` で正しく登録されていない可能性あり

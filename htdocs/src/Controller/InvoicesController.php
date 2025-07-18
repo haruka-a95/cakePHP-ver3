@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Dompdf\Dompdf; // DOMPDFを使用
 /**
  * Invoices Controller
  *
@@ -109,8 +109,8 @@ class InvoicesController extends AppController
     {
         $invoice = $this->Invoices->get($id);
 
-         // DOMPDF を読み込む（配置した場所に応じてパスを調整）
-        require_once(ROOT . DS . 'vendor' . DS . 'dompdf' . DS . 'autoload.inc.php');
+        // DOMPDF を読み込む（配置した場所に応じてパスを調整）
+        require_once __DIR__ . '/../../vendor/autoload.php';
 
         /// 自動のレイアウトを無効にする
         $this->viewBuilder()->layout(false);
@@ -124,7 +124,7 @@ class InvoicesController extends AppController
         $html = $this->render()->getBody();
 
         // DOMPDF インスタンス作成
-        $dompdf = new \Dompdf\Dompdf();
+        $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');//サイズ
         $dompdf->render();
