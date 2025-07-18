@@ -1,11 +1,10 @@
 # DOMPDF 利用手順
 
+### 1. DOMPDFのインストール
 ## composerを利用する場合
 
-### 1. DOMPDFのインストール
-
 このブランチではすでに `composer.json` に `dompdf/dompdf` が含まれているため、  
-**ブランチを```feat/pdf```に切り替えた後に以下を実行するだけで DOMPDF が利用可能になります：**
+**ブランチを```feat/pdf/load_font```に切り替えた後に以下を実行するだけで DOMPDF が利用可能になります。**
 ```bash
 composer install
 ```
@@ -17,13 +16,12 @@ webコンテナ内で以下のコマンドを実行し、DOMPDF を追加イン�
 ```bash
 composer require dompdf/dompdf
 ```
-この操作により composer.json と composer.lock が更新され、
+この操作により```composer.json```と```composer.lock```が更新され、
 vendor/ 以下に dompdf がインストールされます。
 
-日本語フォントの登録に進んでください。
+**日本語フォントの登録に進んでください。**
 
 ## ZIPを使用する場合
-### 1. DOMPDFのインストール
 以下の GitHub リリースページから DOMPDF をダウンロードします。
 
 - https://github.com/dompdf/dompdf/releases
