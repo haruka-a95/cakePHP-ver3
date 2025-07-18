@@ -3,6 +3,9 @@
 Composer を使用せずに DOMPDF を zip ファイルから手動導入し、日本語対応フォント（IPAexGothic）を埋め込んで使用する方法を説明します。
 ※このプロジェクトでは Docker コンテナ内で PHP 実行を行います。
 
+**composerを利用する場合は以下を参照**
+[composerでのインストール](https://github.com/haruka-a95/cakePHP-ver3/blob/feat/pdf/load_font/docs/dompdf.md)
+
 ## 1. DOMPDFのインストール
 以下の GitHub リリースページから DOMPDF をダウンロードします。
 

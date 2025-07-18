@@ -57,7 +57,7 @@ bin/cake migrations seed
 ```
 
 ### 9. DOMPDFの使用方法については以下でご確認ください。
-[load_font.phpを使用する方法](docs/dompdf.md)
+[DOMPDFを使用する方法](https://github.com/haruka-a95/cakePHP-ver3/blob/feat/pdf/load_font/docs/dompdf.md)
 
 ## 使い方
 Webアクセス: http://localhost:81
