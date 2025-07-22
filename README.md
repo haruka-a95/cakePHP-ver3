@@ -50,7 +50,7 @@ cp config/app_local.example.php config/app_local.php
 ```bash
 bin/cake migrations migrate
 ```
-（以下の例のようなSQLの認証方式のエラーが出た場合）
+（以下のようなSQLの認証方式のエラーが出た場合）
 ```bash
 Exception: There was a problem connecting to the database: SQLSTATE[HY000] [2054] The server requested authentication method unknown to the client in ～
 ```
