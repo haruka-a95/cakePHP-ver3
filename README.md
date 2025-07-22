@@ -50,6 +50,24 @@ cp config/app_local.example.php config/app_local.php
 ```bash
 bin/cake migrations migrate
 ```
+（以下の例のようなSQLの認証方式のエラーが出た場合）
+```bash
+Exception: There was a problem connecting to the database: SQLSTATE[HY000] [2054] The server requested authentication method unknown to the client in ～
+```
+MySQLの認証方式を ```mysql_native_password``` に変更します。
+```bash
+# MySqlコンテナに入る
+docker exec -it cakephp-mysql bash
+# MySqlクライアントに入る
+mysql -u root -p
+# パスワード root を入力(入力したテキストは非表示になっている)
+root
+# MySQLプロンプトで実行
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
+FLUSH PRIVILEGES;
+exit;
+```
+必要に応じてユーザー名やホスト名、パスワードを変更してください。
 
 ### 8. サンプルデータ投入
 ```bin
